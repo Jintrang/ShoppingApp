@@ -1,0 +1,249 @@
+<style>
+    .intro-section {
+        color: aliceblue;
+        text-align: center;
+    }
+
+    .search-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .search-input {
+        width: 300px;
+        margin: 10px;
+    }
+
+    .program-category {
+        width: 200px;
+        margin: 10px;
+    }
+
+    .program-items {
+        background-color: rgb(19, 23, 42);
+        border: 1px solid rgb(35, 39, 61);
+        border-radius: 20px;
+        padding: 20px;
+        margin-bottom: 20px;
+        height: 690px
+    }
+
+    .product-image {
+        width: 100%;
+        height: auto;
+    }
+
+    .program-name {
+        color: aliceblue;
+        height: 65px;
+        vertical-align: middle;
+        font-family:'Georgia';
+    }
+
+    .program-artist {
+        color: aliceblue;
+    }
+
+    .program-language {
+        color: aliceblue;
+    }
+
+    .program-number {
+        color: aliceblue;
+    }
+
+    .program-year {
+        color: aliceblue;
+    }
+
+    .program-ratting {
+        color: yellow;
+    }
+
+    .program-action {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .program-favorite {
+        border-radius: 50px;
+        margin-left: 20px;
+        background-color: white;
+        color: red;
+        width: 45px;
+        text-align: center;
+        text-justify: center;
+        font-size: 25px;
+    }
+
+    .form-control::placeholder {
+        color: rgba(173, 169, 169, 0.5);
+        opacity: 1;
+    }
+
+    .form-control::-ms-input-placeholder {
+        color: rgba(173, 169, 169, 0.5);
+    }
+
+    .form-control:-ms-input-placeholder {
+        color: rgba(173, 169, 169, 0.5);
+    }
+</style>
+<div class="intro-section">
+    <h1>Đây là nơi để chọn chương trình</h1>
+    <p>Bạn có thể chọn chương trình ở dưới đây</p>
+</div>
+<div class="container">
+    <div class="search-box">
+        <input type="text" class="form-control search-input" placeholder="Tìm chương trình ở đây">
+        <select class="form-control program-category">
+            <option selected disabled hidden> Loại chương trình</option>
+            <option>Chương trình ca nhạc</option>
+            <option>Chương trình thực tế</option>
+            <option>Live (weverse)</option>
+            <option>Phim</option>
+        </select>
+    </div>
+    <div class="row">
+        <div class="col-lg-4 col-md-6">
+            <div class="program-items">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTf3xI0uoYMC6Nc-8j9e30AZn2ZAeqVCZEivQ&s"
+                    alt="Program image" class="product-image">
+                <h3 class="program-name">Run BTS</h3>
+                <p class="program-artist">Nghệ sĩ: BTS</p>
+                <p class="program-language">Ngôn ngữ: Tiếng Hàn</p>
+                <p class="program-number">Số tập: 2/100</p>
+                <p class="program-year">Năm phát hành: 2013-2024</p>
+                <div class="program-ratting">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star-half-alt"></i>
+                </div>
+
+                <div class="program-action">
+                    <button class="btn btn-primary">Chọn chương trình</button>
+                    <button class="program-favorite">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="program-items">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTf3xI0uoYMC6Nc-8j9e30AZn2ZAeqVCZEivQ&s"
+                    alt="Program image" class="product-image">
+                <h3 class="program-name">The Half-Star Hotel in Lost Island</h3>
+                <p class="program-artist">Nghệ sĩ: Kim Seokjin</p>
+                <p class="program-language">Ngôn ngữ: Tiếng Hàn</p>
+                <p class="program-number">Số tập: 2/100</p>
+                <p class="program-year">Năm phát hành: 2013-2024</p>
+                <div class="program-ratting">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star-half-alt"></i>
+                </div>
+
+                <div class="program-action">
+                    <button class="btn btn-primary">Chọn chương trình</button>
+                    <button class="program-favorite">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="program-items">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTf3xI0uoYMC6Nc-8j9e30AZn2ZAeqVCZEivQ&s"
+                    alt="Program image" class="product-image">
+                <h3 class="program-name">Run BTS</h3>
+                <p class="program-artist">Nghệ sĩ: BTS</p>
+                <p class="program-language">Ngôn ngữ: Tiếng Hàn</p>
+                <p class="program-number">Số tập: 2/100</p>
+                <p class="program-year">Năm phát hành: 2013-2024</p>
+                <div class="program-ratting">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star-half-alt"></i>
+                </div>
+
+                <div class="program-action">
+                    <button class="btn btn-primary">Chọn chương trình</button>
+                    <button class="program-favorite">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="program-items">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTf3xI0uoYMC6Nc-8j9e30AZn2ZAeqVCZEivQ&s"
+                    alt="Program image" class="product-image">
+                <h3 class="program-name">Run BTS</h3>
+                <p class="program-artist">Nghệ sĩ: BTS</p>
+                <p class="program-language">Ngôn ngữ: Tiếng Hàn</p>
+                <p class="program-number">Số tập: 2/100</p>
+                <p class="program-year">Năm phát hành: 2013-2024</p>
+                <div class="program-ratting">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star-half-alt"></i>
+                </div>
+
+                <div class="program-action">
+                    <button class="btn btn-primary">Chọn chương trình</button>
+                    <button class="program-favorite">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="program-items">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTf3xI0uoYMC6Nc-8j9e30AZn2ZAeqVCZEivQ&s"
+                    alt="Program image" class="product-image">
+                <h3 class="program-name">Run BTS</h3>
+                <p class="program-artist">Nghệ sĩ: BTS</p>
+                <p class="program-language">Ngôn ngữ: Tiếng Hàn</p>
+                <p class="program-number">Số tập: 2/100</p>
+                <p class="program-year">Năm phát hành: 2013-2024</p>
+                <div class="program-ratting">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star-half-alt"></i>
+                </div>
+
+                <div class="program-action">
+                    <button class="btn btn-primary">Chọn chương trình</button>
+                    <button class="program-favorite">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
