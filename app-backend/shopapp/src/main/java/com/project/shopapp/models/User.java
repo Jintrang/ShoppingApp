@@ -19,7 +19,7 @@ public class User extends BaseEntity{
     @Column(name = "id")
     private long id;
 
-    @Column(name = "full_name", length = 200)
+    @Column(name = "fullname", length = 200)
     private String fullName;
 
     @Column(name = "phone_number", nullable = false, length = 10)
@@ -44,6 +44,6 @@ public class User extends BaseEntity{
     private int googleAccountId;
 
     @ManyToOne
-    @JoinColumn(name = "role")
+    @JoinColumn(name = "role_id")
     private Role role;
 }

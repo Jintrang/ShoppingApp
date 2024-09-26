@@ -15,10 +15,10 @@ import lombok.*;
 public class OrderDetailDTO {
     @JsonProperty("order_id")
     @NotNull(message = "Order ID must be have")
-    private int orderID;
+    private long orderID;
 
     @JsonProperty("product_id")
-    private int productID;
+    private long productID;
 
     @Min(value = 0, message = "price must be greater than 0")
     private float price;

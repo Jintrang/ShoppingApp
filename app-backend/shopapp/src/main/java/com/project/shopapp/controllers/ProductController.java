@@ -1,7 +1,9 @@
 package com.project.shopapp.controllers;
 
+import com.github.javafaker.Faker;
 import com.project.shopapp.dtos.ProductDTO;
 import com.project.shopapp.dtos.ProductImageDTO;
+import com.project.shopapp.exceptions.DataNotFoundException;
 import com.project.shopapp.models.Product;
 import com.project.shopapp.models.ProductImage;
 import com.project.shopapp.responses.ProductListResponse;
@@ -100,6 +102,29 @@ public class ProductController {
         Files.copy(file.getInputStream(), destination, StandardCopyOption.REPLACE_EXISTING);
         return uniqueFilename;
     }
+
+    @PostMapping("/generateFakeProducts")
+    public ResponseEntity<?> generateFakeProducts() {
+        Faker faker = new Faker();
+        for (int i = 0; i < 7000; i++) {
+            String productName = faker.commerce().productName();
+            if(productService.existByName(productName)) continue;
+            ProductDTO productDTO = ProductDTO.builder()
+                    .name(productName)
+                    .thumbnail("")
+                    .description(faker.lorem().sentence())
+                    .price((float)faker.number().numberBetween(10000, 100000000))
+                    .categoryId((long)faker.number().numberBetween(2, 5))
+                    .build();
+            try {
+                Product fakeProduct = productService.createProduct(productDTO);
+            } catch (DataNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return ResponseEntity.ok().body("Create fake products");
+    }
+
     @GetMapping("")
     public ResponseEntity<ProductListResponse> getProducts(@RequestParam ("page") int page, @RequestParam("limit") int limit ) {
         PageRequest pageRequest = PageRequest.of(page, limit, Sort.by("createdAt").descending());
@@ -113,17 +138,26 @@ public class ProductController {
         return ResponseEntity.ok().body(productListResponse);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<String> getProductById(@PathVariable("id") String id) {
-        return ResponseEntity.ok("Get product with id = " + id);
+    public ResponseEntity<?> getProductById(@PathVariable("id") Long id) {
+        try {
+            Product existingProduct = productService.getProductById(id);
+            return ResponseEntity.ok(ProductResponse.fromProduct(existingProduct));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateProductById(@PathVariable("id") String id) {
+    public ResponseEntity<String> updateProductById(@PathVariable("id") long id, @RequestBody ProductDTO productDTO) {
+        try {
+            productService.updateProduct(id, productDTO);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
         return ResponseEntity.ok("Update product with id = " + id);
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteProductById(@PathVariable("id") String id) {
+    public ResponseEntity<String> deleteProductById(@PathVariable("id") long id) {
+        productService.deleteProduct(id);
         return ResponseEntity.ok("Delete product with id = " + id);
     }
-
-
 }

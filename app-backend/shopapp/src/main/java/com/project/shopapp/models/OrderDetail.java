@@ -1,5 +1,6 @@
 package com.project.shopapp.models;
 
+import com.project.shopapp.dtos.OrderDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -36,4 +37,5 @@ public class OrderDetail {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
+
 }

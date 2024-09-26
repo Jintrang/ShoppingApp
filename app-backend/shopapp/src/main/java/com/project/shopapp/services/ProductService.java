@@ -14,11 +14,9 @@ import com.project.shopapp.responses.ProductResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -46,24 +44,12 @@ public class ProductService implements IProductService {
         Product product = productRepository
                 .findById(id)
                 .orElseThrow(() -> new DataNotFoundException("Product with id " + id + " not found"));
-        return null;
+        return product;
     }
 
     @Override
     public Page<ProductResponse> getAllProducts(PageRequest pageRequest) {
-        return productRepository.findAll(pageRequest).map(product -> {
-            ProductResponse productResponse = ProductResponse
-                    .builder()
-                    .name(product.getName())
-                    .price(product.getPrice())
-                    .categoryId(product.getCategory().getId())
-                    .description(product.getDescription())
-                    .thumbnail(product.getThumbnail())
-                    .build();
-            productResponse.setCreatedAt(product.getCreatedAt());
-            productResponse.setUpdatedAt(product.getUpdatedAt());
-            return productResponse;
-        });
+        return productRepository.findAll(pageRequest).map(ProductResponse::fromProduct);
     }
 
     @Override
@@ -88,9 +74,8 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Product existByName(String name) {
-        Product product = productRepository.findByName(name);
-        return null;
+    public boolean existByName(String name) {
+        return productRepository.existsByName(name);
     }
 
     @Override

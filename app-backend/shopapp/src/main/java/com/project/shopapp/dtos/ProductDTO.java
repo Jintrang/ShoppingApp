@@ -13,6 +13,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class ProductDTO {
     @NotBlank(message = "Title not blank")
     @Size(min=3, max =200, message = "Size must be 3 to 200 characters")

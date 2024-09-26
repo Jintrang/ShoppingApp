@@ -1,8 +1,11 @@
 package com.project.shopapp.models;
 
+import com.project.shopapp.dtos.OrderDTO;
+import com.project.shopapp.exceptions.DataNotFoundException;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -20,7 +23,7 @@ public class Order {
     @Column(name = "id")
     private long id;
 
-    @Column(name = "full_name", length = 200)
+    @Column(name = "fullname", length = 200)
     private String fullName;
 
     @Column(name = "phone_number", nullable = false, length = 10)
@@ -51,7 +54,7 @@ public class Order {
     private String shippingMethod;
 
     @Column(name = "shipping_date")
-    private Date shippingDate;
+    private LocalDate shippingDate;
 
     @Column(name = "tracking_number", length = 200)
     private String trackingNumber;
@@ -59,10 +62,32 @@ public class Order {
     @Column(name = "payment_method", length = 200)
     private String paymentMethod;
 
-    @Column(name = "activate", nullable = false)
+    @Column(name = "active", nullable = false)
     private boolean activate;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public static Order fromOrderDTO(OrderDTO orderDTO) throws Exception {
+        Order newOrder = Order.builder()
+                .orderDate(LocalDateTime.now())
+                .email(orderDTO.getEmail())
+                .activate(true)
+                .address(orderDTO.getAddress())
+                .note(orderDTO.getNote())
+                .fullName(orderDTO.getFullName())
+                .paymentMethod(orderDTO.getPaymentMethod())
+                .phoneNumber(orderDTO.getPhoneNumber())
+                .status("Pending")
+                .shippingMethod(orderDTO.getShippingMethod())
+                .shippingAddress(orderDTO.getShippingAddress())
+                .totalMoney(orderDTO.getTotalMoney())
+                .shippingDate(orderDTO.getShippingDate()==null ? LocalDate.now(): orderDTO.getShippingDate())
+                .build();
+        if(newOrder.getShippingDate().isBefore(LocalDate.now())) {
+            throw new DataNotFoundException("Shipping Date must be at least today!");
+        }
+        return newOrder;
+    }
 }
