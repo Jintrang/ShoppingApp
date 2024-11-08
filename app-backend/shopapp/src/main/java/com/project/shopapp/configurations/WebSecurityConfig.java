@@ -11,6 +11,9 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.PUT;
+
 @Configuration
 @EnableMethodSecurity
 @RequiredArgsConstructor
@@ -22,8 +25,15 @@ public class WebSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(requests -> {
-                    requests.requestMatchers("**")
-                            .permitAll();
+                    requests
+                            .requestMatchers(
+                                    String.format("api/v1/users/register"),
+                                    String.format("api/v1/users/login")
+                            ).permitAll()
+                            .requestMatchers(PUT,
+                                    String.format("api/v1/orders/**")).hasRole("ADMIN")
+                            .requestMatchers(POST, String.format("api/v1/products/**")).hasRole("ADMIN")
+                            .anyRequest().authenticated();
                 });
         return http.build();
     }

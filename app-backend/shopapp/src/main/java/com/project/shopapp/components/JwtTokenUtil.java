@@ -8,6 +8,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -30,7 +31,6 @@ public class JwtTokenUtil {
         Map<String, Object> claims = new HashMap<>();
         claims.put("phoneNumber", user.getPhoneNumber());
         try {
-
             String token = Jwts.builder()
                     .setClaims(claims)
                     .setSubject(user.getPhoneNumber())
@@ -49,7 +49,6 @@ public class JwtTokenUtil {
         return Base64.getEncoder().encodeToString(keyBytes); // Trả về chuỗi Base64
     }
     private Key getSignInKey() {
-
        //String secretKey1 = generateSecretKey();
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
@@ -65,13 +64,21 @@ public class JwtTokenUtil {
     public  <T> T extractClaims(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = this.extractAllClaims(token);
         return claimsResolver.apply(claims);
-
     }
     //check expiration
     private  boolean isTokenExpired(String token) {
         Date expirationDate = extractAllClaims(token).getExpiration();
         return expirationDate.before(new Date());
     }
+
+    public String extractPhoneNumber(String token) {
+        return extractClaims(token, Claims::getSubject);
+    }
+    public boolean validateToken (String token, UserDetails userDetails) {
+        String phoneNumber = extractPhoneNumber(token);
+        return (phoneNumber.equals(userDetails.getUsername())) && !isTokenExpired(token);
+    }
+
 
 
 
